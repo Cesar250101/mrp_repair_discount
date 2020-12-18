@@ -68,8 +68,11 @@ class MrpRepair(models.Model):
     def action_invoice_create(self, group=False):
         res = super(MrpRepair, self).action_invoice_create(group)
         for repair in self:
-            operations = repair.operations.filtered('invoice_method')
-            fees_lines = repair.fees_lines.filtered('invoice_method')
+            #operations = repair.operations.filtered('invoice_method')
+            #fees_lines = repair.fees_lines.filtered('invoice_method')
+            operations = repair.operations
+            fees_lines = repair.fees_lines
+
             if repair.invoice_method != 'none':
                 for op in operations:
                     op.invoice_line_id.discount = op.discount
